@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tobo: the AI teammate that keeps track of what your team promised</title>
-<meta name="description" content="Tobo reads your team's email and keeps one shared list: who promised what, who already replied, and whose turn it is. Flat price, no credits. Private beta.">
+<title>Tobo: the AI teammate that does the work</title>
+<meta name="description" content="Add Tobo to your team's group. He does the work across your tools, remembers what your team knows, and asks before anything he can't undo. Flat price, no credits.">
 <link rel="canonical" href="https://heytobo.com/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://heytobo.com/">
-<meta property="og:title" content="Tobo: nothing falls through the cracks">
-<meta property="og:description" content="The AI teammate that keeps track of what your team promised. Who replied, who promised what, whose turn it is. Flat price, no credits.">
+<meta property="og:title" content="Hand it to Tobo">
+<meta property="og:description" content="The AI teammate that does the work. One group for the whole team, one shared memory, one flat price.">
 <meta property="og:image" content="https://heytobo.com/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@heytobo">
@@ -19,7 +19,7 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tobo","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://heytobo.com/","description":"The AI teammate that keeps track of what your team promised, so nothing falls through the cracks.","offers":{"@type":"Offer","price":"19","priceCurrency":"USD","description":"Per teammate, per month. No credits."}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tobo","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://heytobo.com/","description":"The AI teammate that does the work, for the whole team: one group, one shared memory, one flat price."}
 </script>
 <style>
 @font-face{font-family:"Geist";src:url("/assets/fonts/geist-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
@@ -102,6 +102,23 @@ h1{font-size:clamp(2.5rem,6.4vw,4.5rem);line-height:1.02;letter-spacing:-.035em;
 .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
+
+.mock.chat{padding:22px 22px 30px}
+.line{display:flex;gap:12px;padding:12px 0;border-top:1px solid #F1E9DA;font-size:15px;line-height:1.45}
+.line p{margin:2px 0 0;color:var(--cocoa)}
+.line .who{font-weight:600;font-size:14px}
+.av-t{flex:0 0 34px;width:34px;height:34px;object-fit:contain}
+.steps{list-style:none;margin:8px 0;padding:0;display:grid;gap:5px;color:var(--muted);font-size:14.5px}
+.steps li{padding-left:24px;position:relative}
+.steps li::before{content:"";position:absolute;left:3px;top:.42em;width:11px;height:6px;border-left:2px solid var(--leaf);border-bottom:2px solid var(--leaf);transform:rotate(-45deg)}
+.ok{display:flex;gap:8px;margin:10px 0 6px}
+.ok span{border-radius:9999px;padding:.5rem 1rem;font-size:13.5px;font-weight:500}
+.ok .b1{background:var(--cocoa);color:var(--cream)}
+.ok .b2{background:#fff;border:1px solid var(--sand)}
+.receipt{font-size:12.5px!important;color:var(--soft)!important}
+.mock.chat .tobo{left:auto;right:-18px;bottom:-30px;width:104px}
+@media (max-width:900px){.mock.chat .tobo{right:6px;bottom:-34px;width:88px}}
+
 /* sections */
 section{padding:64px 0}
 .kicker{font-size:13.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf);margin:0 0 10px}
@@ -165,7 +182,6 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#rules">Our rules</a>
-      <a href="#pricing">Pricing</a>
       <a class="btn btn-primary btn-sm" href="#join">Join the beta</a>
     </nav>
   </header>
@@ -173,9 +189,9 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
   <main id="main">
     <div class="hero">
       <div>
-        <span class="pill rise"><i></i>Private beta: 100 seats</span>
-        <h1 class="rise d1">Nothing falls through the cracks.</h1>
-        <p class="lead rise d2">Tobo is the AI teammate that reads your team's email and keeps one shared list: <b>who promised what, who already replied, and whose turn it is.</b></p>
+        <span class="pill rise"><i></i>Private beta</span>
+        <h1 class="rise d1">Hand it to Tobo.</h1>
+        <p class="lead rise d2">Tobo is the AI teammate that does the work. Add him to your team's group: <b>he gets things done across your tools, remembers what your team knows, and asks before anything he can't undo.</b></p>
         <form class="join rise d3" data-join novalidate>
           <label class="skip" for="e1">Work email</label>
           <input id="e1" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourteam.com" required>
@@ -185,35 +201,33 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
           <button class="btn btn-primary" type="submit">Join the private beta</button>
         </form>
         <p class="status" role="status" aria-live="polite"></p>
-        <p class="note">For teams of 2 to 15 on Gmail and Google Workspace. $19 per teammate, no credits.</p>
+        <p class="note">For teams of 2 to 50. One flat price per teammate, no credits.</p>
       </div>
 
-      <div class="mock rise d2" aria-label="Example: Tobo's bubble inside a Gmail conversation">
+      <div class="mock chat rise d2" aria-label="Example: a team asks Tobo to do a task in their group">
         <div class="mock-top"><span></span><span></span><span></span><em>Example</em></div>
-        <p class="subject">Re: Quote for 500 glass bottles</p>
-        <div class="msg"><div class="av"></div><div class="lines"><b></b><b></b><b></b></div></div>
-        <div class="msg"><div class="av me"></div><div class="lines"><b></b><b></b><b></b></div></div>
-        <div class="msg"><div class="av"></div><div class="lines"><b></b><b></b><b></b></div></div>
-        <div class="bubble">
-          <strong>Tobo</strong>
-          <p><mark>Waiting on you for 4 days:</mark> the supplier asks to confirm quantity and delivery date.</p>
-          <p><mark>Micka promised:</mark> send the updated quote (by Nov 12).</p>
-        </div>
+        <p class="subject"># our-team</p>
+        <div class="line"><div class="av me"></div><div><b class="who">Maya</b><p>@Tobo the glass supplier is still waiting on us. Reply with the new quantities and update the quote?</p></div></div>
+        <div class="line"><img class="av-t" src="/assets/tobo-face.png" alt="" width="34" height="34"><div><b class="who">Tobo</b><p>On it.</p>
+          <ul class="steps"><li>Read the thread with the supplier</li><li>Updated the quote in Drive</li><li>Drafted the reply in your Gmail</li></ul>
+          <p>Ready to send. This one leaves the team, so I need your OK.</p>
+          <div class="ok"><span class="b1">Approve</span><span class="b2">Edit first</span></div>
+          <p class="receipt">3 min · 6 steps · within your plan</p></div></div>
         <img class="tobo" src="/assets/tobo-wave.webp" alt="Tobo, a plush penguin with a green scarf, waving" width="295" height="335">
       </div>
     </div>
   </main>
 </div>
 
-<section class="band" aria-labelledby="catches">
+<section class="band" aria-labelledby="does">
   <div class="wrap">
-    <p class="kicker">What Tobo catches</p>
-    <h2 id="catches">The three things every team loses track of.</h2>
-    <p class="sub">Clients and suppliers live in email. Your team answers from several inboxes. Tobo reads the threads and keeps the list nobody has time to keep.</p>
+    <p class="kicker">What Tobo does</p>
+    <h2 id="does">A teammate, not another chat window.</h2>
+    <p class="sub">You hand Tobo a job in your team's group. He does it in your tools and comes back with the finished thing.</p>
     <div class="grid3">
-      <div class="card"><p class="quote">"Waiting on you for 4 days."</p><h3>Whose turn it is</h3><p>On every thread, Tobo knows if the ball is with your team or with the other side, and for how long.</p></div>
-      <div class="card"><p class="quote">"Micka promised the quote by Nov 12."</p><h3>What was promised</h3><p>A promise made by email gets an owner and a date, so it does not get lost.</p></div>
-      <div class="card"><p class="quote">"Micka already replied yesterday."</p><h3>Who already replied</h3><p>Before you write the same email twice, Tobo tells you a teammate already answered, and when.</p></div>
+      <div class="card"><h3>He does the work</h3><p>Research, reports, spreadsheets, follow-ups, updates in your tools, jobs that run every Monday. From the ask to the finished thing.</p></div>
+      <div class="card"><h3>He remembers what your team knows</h3><p>One shared memory for the group, sorted by project. Everyone can read it, fix it, or erase it.</p></div>
+      <div class="card"><h3>He asks before anything he can't undo</h3><p>Routine work runs on its own. Writing to a client, spending money or deleting something waits for one click.</p></div>
     </div>
   </div>
 </section>
@@ -221,12 +235,12 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
 <section id="how" aria-labelledby="how-h">
   <div class="wrap">
     <p class="kicker">How it works</p>
-    <h2 id="how-h">No new inbox. Nothing to migrate.</h2>
-    <p class="sub">Tobo sits on top of the Gmail you already use.</p>
+    <h2 id="how-h">One group. The whole team. And Tobo.</h2>
+    <p class="sub">Nothing to configure, no agent to build.</p>
     <div class="grid3">
-      <div class="card step"><span class="num">1</span><div><h3>Create your team</h3><p>Tobo is born with it. Name him, pick his color, invite your teammates with a link.</p></div></div>
-      <div class="card step"><span class="num">2</span><div><h3>Connect Gmail</h3><p>One click each. Every teammate chooses what their inbox shares with the team.</p></div></div>
-      <div class="card step"><span class="num">3</span><div><h3>See what is slipping</h3><p>Inside Gmail, in Slack, and in a chat where every answer links to its source.</p></div></div>
+      <div class="card step"><span class="num">1</span><div><h3>Create your group</h3><p>Tobo is born with it. Name him, pick his color, invite your teammates with a link.</p></div></div>
+      <div class="card step"><span class="num">2</span><div><h3>Connect your tools</h3><p>One click each. What you connect stays yours: Tobo uses it only for work you ask for.</p></div></div>
+      <div class="card step"><span class="num">3</span><div><h3>Hand him work</h3><p>Ask in the group, or put a job on a schedule. Everyone sees what is running and what is done.</p></div></div>
     </div>
   </div>
 </section>
@@ -235,43 +249,15 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
   <div class="wrap">
     <p class="kicker">Our rules</p>
     <h2 id="rules-h">We went through 1,165 public reviews of AI coworkers.</h2>
-    <p class="sub">The same four complaints kept coming back. Tobo is built around them.</p>
+    <p class="sub">The same complaints kept coming back. Tobo is built around them.</p>
     <table>
       <tr><th scope="col">What people complain about</th><th scope="col">The rule we hold ourselves to</th></tr>
-      <tr><td>Credits that melt, bills nobody can predict</td><td>Flat price. $19 per teammate. No credits, no meter.</td></tr>
-      <tr><td>Memory locked in one channel or one person, and invisible</td><td>One ledger for the team. Everyone sees the same thing. No manager view.</td></tr>
-      <tr><td>Nobody knows who already did what</td><td>Who replied, who promised what, whose turn it is. With the date.</td></tr>
-      <tr><td>"Can I trust it with my inbox?"</td><td>Facts, not your emails. Tobo reads a message, keeps the fact, throws the message away. He never sends anything.</td></tr>
+      <tr><td>Credits that melt, bills nobody can predict</td><td>One flat price per teammate. Every task has a hard cap. No automatic top-ups, ever.</td></tr>
+      <tr><td>Memory locked in one channel or one person, and invisible</td><td>One memory for the whole group. You can read it, edit it, and see where each line came from.</td></tr>
+      <tr><td>"I have to babysit it" or "it did it without asking"</td><td>Routine work runs alone. One click from you for anything that leaves the team, costs money or deletes.</td></tr>
+      <tr><td>"Can I trust it with my tools?"</td><td>What you connect stays yours. Every action is logged with its steps. Nothing is used to train a model.</td></tr>
     </table>
     <p class="source">Reviews of Viktor, Claude Tag, Slackbot, Lindy, Dust and Glean on Reddit, Hacker News, Trustpilot, G2 and Product Hunt, collected on November 10, 2026.</p>
-  </div>
-</section>
-
-<section id="pricing" aria-labelledby="pricing-h">
-  <div class="wrap">
-    <p class="kicker">Pricing</p>
-    <h2 id="pricing-h">One plan. One price. No credits.</h2>
-    <p class="sub">Tobo reads threads, he does not run open-ended tasks. His cost is predictable, so yours is too.</p>
-    <div class="price">
-      <div class="card">
-        <p class="big">$19 <small>per teammate, per month</small></p>
-        <ul class="ticks">
-          <li>$15 when billed yearly</li>
-          <li>Ask Tobo as much as you want</li>
-          <li>Every teammate sees the same ledger</li>
-          <li>Cancel in one click, delete everything in one click</li>
-        </ul>
-      </div>
-      <div class="card founding">
-        <p class="big">$9 <small>for founding teams</small></p>
-        <ul class="ticks">
-          <li>The first 100 seats of the private beta</li>
-          <li>14 days free, no card to start</li>
-          <li>Price locked for 12 months</li>
-          <li>A direct line to the two founders</li>
-        </ul>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -280,12 +266,13 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
     <p class="kicker">Questions</p>
     <h2 id="faq-h">The honest answers.</h2>
     <div style="max-width:760px;margin-top:26px">
-      <details><summary>Does Tobo keep my emails?</summary><p>No. Tobo reads the text of a work conversation, keeps what he understood (whose turn it is, a one-sentence summary, promises and dates, a link back to the message) and discards the text. Attachments are never opened. Your data is never used to train a model.</p></details>
-      <details><summary>Who can see what?</summary><p>Each teammate chooses what their own inbox shares. What is shared is visible to the whole team in the same way. There is no manager view, no ranking and no activity counter. Tobo talks about the work, never about people.</p></details>
-      <details><summary>Which tools does Tobo work with?</summary><p>Gmail and Google Workspace today, with Slack to ask Tobo questions. Google Calendar and Outlook are next. We finish one tool completely before starting another.</p></details>
-      <details><summary>Does Tobo send emails for me?</summary><p>No. Tobo never sends, edits or deletes anything. He tells you what is slipping. People decide what to do.</p></details>
-      <details><summary>Why does Google show a warning when I connect?</summary><p>During the private beta, Google shows an "unverified app" screen. Google's verification and an independent security assessment come before we open Tobo to everyone.</p></details>
-      <details><summary>Who is behind Tobo?</summary><p>Two founders in France. One of us is 16. We run a small brand together and we built Tobo for our own supplier threads first. We build in public on <a href="https://x.com/heytobo">X</a>.</p></details>
+      <details><summary>Is Tobo available today?</summary><p>Not yet. We are building Tobo in public and opening the private beta team by team. Join the list and we will write to you when your team's seats are ready.</p></details>
+      <details><summary>What can Tobo do?</summary><p>The work you would hand to a capable teammate: research, reports, spreadsheets and slides, follow-ups, updates in the tools you connect, and recurring jobs on a schedule. He has his own computer in the cloud to run code and build files.</p></details>
+      <details><summary>Does Tobo act on his own?</summary><p>For routine work, yes. Anything that leaves the team, costs money or deletes something waits for one click from you. You choose that level for every tool: blocked, ask first, or allowed.</p></details>
+      <details><summary>Who can see what?</summary><p>The group shares one memory and one activity feed, so everyone knows what Tobo is doing and what he knows. What you connect stays yours: Tobo uses your access only for work you asked for. Tobo talks about the work, never ranks people.</p></details>
+      <details><summary>Which tools does Tobo work with?</summary><p>Google Workspace and Slack first. Then Notion, Linear, HubSpot, GitHub and Stripe. After that, any tool that has an API.</p></details>
+      <details><summary>What does it cost?</summary><p>One flat price per teammate. No credits. Every task has a hard cap and shows what it cost. We publish the price before billing starts.</p></details>
+      <details><summary>Who is behind Tobo?</summary><p>Two founders in France. One of us is 16. We build in public on <a href="https://x.com/heytobo">X</a>.</p></details>
     </div>
   </div>
 </section>
@@ -294,7 +281,7 @@ footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;col
   <div class="wrap">
     <img src="/assets/tobo-happy.webp" alt="Tobo smiling" width="274" height="308">
     <h2 id="join-h">Get a seat in the private beta.</h2>
-    <p class="sub">100 seats. We open them team by team and write to you when yours is ready.</p>
+    <p class="sub">We open it team by team and write to you when your seats are ready.</p>
     <form class="join" data-join novalidate>
       <label class="skip" for="e2">Work email</label>
       <input id="e2" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourteam.com" required>
