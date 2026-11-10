@@ -1,0 +1,16 @@
+@font-face{font-family:"Geist";src:url("/assets/fonts/geist-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+*{box-sizing:border-box}
+body{margin:0;background:#FBF7F0;color:#2B2118;font-family:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+main{max-width:720px;margin:0 auto;padding:28px 20px 80px}
+.back{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:18px;text-decoration:none;color:inherit;margin-bottom:28px}
+.back img{width:28px;height:28px;object-fit:contain}
+h1{font-size:clamp(2rem,5vw,2.8rem);letter-spacing:-.03em;line-height:1.1;margin:0 0 6px;font-weight:600}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin:34px 0 8px;font-weight:600}
+p,li{color:#4a3d30}
+.date{color:#8A7B6A;font-size:14.5px;margin:0 0 22px}
+ul{padding-left:22px}
+li{margin-bottom:12px}
+a{color:#2f6b3d}
+.center{text-align:center;padding-top:12vh}
+.center img{width:150px;margin:0 auto 8px;display:block}
+.btn{display:inline-block;margin-top:14px;background:#2B2118;color:#FBF7F0;text-decoration:none;border-radius:9999px;padding:.8rem 1.4rem;font-weight:500;font-size:.95rem}

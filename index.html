@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tobo: the AI teammate that keeps track of what your team promised</title>
+<meta name="description" content="Tobo reads your team's email and keeps one shared list: who promised what, who already replied, and whose turn it is. Flat price, no credits. Private beta.">
+<link rel="canonical" href="https://heytobo.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://heytobo.com/">
+<meta property="og:title" content="Tobo: nothing falls through the cracks">
+<meta property="og:description" content="The AI teammate that keeps track of what your team promised. Who replied, who promised what, whose turn it is. Flat price, no credits.">
+<meta property="og:image" content="https://heytobo.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@heytobo">
+<meta name="theme-color" content="#FBF7F0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tobo","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://heytobo.com/","description":"The AI teammate that keeps track of what your team promised, so nothing falls through the cracks.","offers":{"@type":"Offer","price":"19","priceCurrency":"USD","description":"Per teammate, per month. No credits."}}
+</script>
+<style>
+@font-face{font-family:"Geist";src:url("/assets/fonts/geist-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--cream:#FBF7F0;--cocoa:#2B2118;--sand:#E4D8C3;--scarf:#8DCF98;--leaf:#2f6b3d;--mint:#E4F3E6;--muted:#6f6252;--soft:#8A7B6A;--card:#fff;--spring:cubic-bezier(.34,1.56,.64,1);--smooth:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--cocoa);font-family:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:12px;top:12px;background:#fff;padding:8px 12px;border-radius:8px;z-index:10}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.brand img{width:34px;height:34px;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:26px;font-size:15px}
+.nav-links a{text-decoration:none}
+.nav-links a:not(.btn){color:var(--muted)}
+.nav-links a:not(.btn):hover{color:var(--cocoa)}
+@media (max-width:720px){.nav-links a:not(.btn){display:none}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:0;border-radius:9999px;font:inherit;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;padding:.85rem 1.5rem;font-size:.95rem;text-decoration:none;transition:transform .35s var(--spring),box-shadow .25s ease,background-color .2s ease}
+.btn-primary{color:var(--cream);background:linear-gradient(180deg,#3b2e23,var(--cocoa));box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 2px 6px rgba(43,33,24,.2)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 10px 22px rgba(43,33,24,.24),0 0 0 4px rgba(141,207,152,.28)}
+.btn-primary:active{transform:scale(.96)}
+.btn-sm{padding:.6rem 1.1rem;font-size:.85rem}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--cream),0 0 0 5px var(--scarf);border-radius:12px}
+.btn[disabled]{opacity:.55;cursor:wait}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:44px 0 72px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:36px;padding:20px 0 56px}}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--leaf);font-size:13.5px;font-weight:500;padding:6px 12px;border-radius:9999px}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--leaf);display:block}
+h1{font-size:clamp(2.5rem,6.4vw,4.5rem);line-height:1.02;letter-spacing:-.035em;font-weight:600;margin:18px 0 18px}
+.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:33em;margin:0 0 28px}
+.lead b{color:var(--cocoa);font-weight:500}
+
+/* form */
+.join{display:flex;flex-wrap:wrap;gap:10px;max-width:520px}
+.join input,.join select{font:inherit;font-size:16px;color:var(--cocoa);background:#fff;border:1px solid var(--sand);border-radius:9999px;padding:.8rem 1.1rem;min-width:0}
+.join input{flex:1 1 220px}
+.join select{flex:0 1 150px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236f6252' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:34px}
+.join .btn{flex:1 1 100%}
+@media (min-width:560px){.join .btn{flex:0 0 auto}}
+@media (max-width:559px){.join select{flex:1 1 100%}}
+.join .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.note{font-size:14px;color:var(--soft);margin:12px 0 0}
+.status{font-size:15px;margin:12px 0 0;min-height:1.4em}
+.status.ok{color:var(--leaf);font-weight:500}
+.status.err{color:#a3371f}
+
+/* mock */
+.mock{position:relative;background:var(--card);border:1px solid var(--sand);border-radius:22px;padding:22px 22px 96px;box-shadow:0 24px 60px rgba(43,33,24,.10)}
+.mock-top{display:flex;align-items:center;gap:8px;margin-bottom:18px;color:var(--soft);font-size:13px}
+.mock-top span{width:10px;height:10px;border-radius:50%;background:var(--sand);display:block}
+.mock-top em{font-style:normal;margin-left:auto;background:#F4EDE0;border-radius:9999px;padding:3px 10px;font-size:12px}
+.subject{font-weight:600;font-size:18px;letter-spacing:-.01em;margin:0 0 16px}
+.msg{display:flex;gap:12px;padding:12px 0;border-top:1px solid #F1E9DA}
+.av{flex:0 0 34px;height:34px;border-radius:50%;background:#EADFCB}
+.av.me{background:#CFE6D3}
+.lines{flex:1;display:grid;gap:7px;padding-top:4px}
+.lines b{display:block;height:9px;border-radius:6px;background:#EFE7D8}
+.lines b:nth-child(1){width:38%;background:#E2D7C2}
+.lines b:nth-child(2){width:92%}
+.lines b:nth-child(3){width:64%}
+.bubble{position:absolute;right:18px;bottom:22px;width:min(330px,calc(100% - 96px));background:#FFF8EC;border:1px solid #EAD9BC;border-radius:18px 18px 6px 18px;padding:14px 16px;box-shadow:0 14px 34px rgba(43,33,24,.16);font-size:14.5px;line-height:1.45;animation:pop .7s var(--spring) .5s both}
+.bubble strong{display:block;font-size:12.5px;color:var(--soft);font-weight:600;margin-bottom:6px}
+.bubble p{margin:0 0 8px}
+.bubble p:last-child{margin:0}
+.bubble mark{background:var(--mint);color:var(--leaf);border-radius:5px;padding:0 4px}
+.mock .tobo{position:absolute;left:14px;bottom:-26px;width:118px;animation:float 4.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .7s var(--smooth) both}
+.rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* sections */
+section{padding:64px 0}
+.kicker{font-size:13.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf);margin:0 0 10px}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;letter-spacing:-.03em;font-weight:600;margin:0 0 14px;max-width:18em}
+.sub{color:var(--muted);max-width:38em;margin:0 0 34px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:900px){.grid3,.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--sand);border-radius:20px;padding:24px}
+.card h3{font-size:1.15rem;letter-spacing:-.01em;margin:0 0 8px;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.quote{font-size:15px;background:#FFF8EC;border:1px solid #EAD9BC;border-radius:14px 14px 4px 14px;padding:10px 12px;margin:0 0 16px;color:var(--cocoa)}
+.step{display:flex;gap:16px;align-items:flex-start}
+.num{flex:0 0 38px;height:38px;border-radius:50%;background:var(--cocoa);color:var(--cream);display:grid;place-items:center;font-weight:600;font-size:15px}
+.band{background:#F4EDE0;border-top:1px solid var(--sand);border-bottom:1px solid var(--sand)}
+.rule h3{display:flex;align-items:center;gap:10px}
+.rule h3::before{content:"";flex:0 0 10px;height:10px;border-radius:50%;background:var(--scarf)}
+table{width:100%;border-collapse:collapse;font-size:16px;background:var(--card);border:1px solid var(--sand);border-radius:20px;overflow:hidden}
+th,td{text-align:left;padding:14px 18px;border-top:1px solid #F1E9DA;vertical-align:top}
+tr:first-child th{border-top:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);font-weight:600;background:#FBF7F0}
+td:first-child{color:var(--muted);width:46%}
+td:last-child{font-weight:500}
+@media (max-width:640px){th,td{padding:12px 14px;font-size:15px}}
+.source{font-size:13.5px;color:var(--soft);margin:14px 0 0}
+.price{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+@media (max-width:900px){.price{grid-template-columns:1fr}}
+.card .big{font-size:clamp(2.6rem,5vw,3.6rem);font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--cocoa)}
+.card .big small{font-size:1rem;font-weight:400;color:var(--muted);letter-spacing:0}
+.ticks{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:9px;color:var(--muted);font-size:16px}
+.ticks li{padding-left:26px;position:relative}
+.ticks li::before{content:"";position:absolute;left:2px;top:.45em;width:12px;height:7px;border-left:2px solid var(--leaf);border-bottom:2px solid var(--leaf);transform:rotate(-45deg)}
+.founding{background:var(--cocoa);color:var(--cream);border-color:var(--cocoa)}
+.founding .ticks{color:#D9CDB9}
+.card.founding .big{color:var(--cream)}
+.founding .ticks li::before{border-color:var(--scarf)}
+.card.founding .big small{color:#D9CDB9}
+details{background:var(--card);border:1px solid var(--sand);border-radius:16px;padding:0 20px;margin:0 0 10px}
+summary{cursor:pointer;font-weight:500;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--soft);transition:transform .3s var(--spring)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 18px;color:var(--muted);font-size:16px}
+.cta{text-align:center;padding:76px 0 84px}
+.cta img{width:150px;margin:0 auto 10px;animation:float 4.5s ease-in-out infinite}
+.cta h2{margin:0 auto 12px}
+.cta .sub{margin:0 auto 26px}
+.cta .join{margin:0 auto;justify-content:center}
+.cta .note,.cta .status{text-align:center}
+footer{border-top:1px solid var(--sand);padding:26px 0 40px;font-size:14.5px;color:var(--soft)}
+.foot{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:20px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--cocoa)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Tobo, home"><img src="/assets/tobo-face.png" alt="" width="34" height="34">Tobo</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#rules">Our rules</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-primary btn-sm" href="#join">Join the beta</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <div class="hero">
+      <div>
+        <span class="pill rise"><i></i>Private beta: 100 seats</span>
+        <h1 class="rise d1">Nothing falls through the cracks.</h1>
+        <p class="lead rise d2">Tobo is the AI teammate that reads your team's email and keeps one shared list: <b>who promised what, who already replied, and whose turn it is.</b></p>
+        <form class="join rise d3" data-join novalidate>
+          <label class="skip" for="e1">Work email</label>
+          <input id="e1" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourteam.com" required>
+          <label class="skip" for="s1">Team size</label>
+          <select id="s1" name="team_size"><option value="">Team size</option><option>2-5</option><option>6-15</option><option>16+</option></select>
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-primary" type="submit">Join the private beta</button>
+        </form>
+        <p class="status" role="status" aria-live="polite"></p>
+        <p class="note">For teams of 2 to 15 on Gmail and Google Workspace. $19 per teammate, no credits.</p>
+      </div>
+
+      <div class="mock rise d2" aria-label="Example: Tobo's bubble inside a Gmail conversation">
+        <div class="mock-top"><span></span><span></span><span></span><em>Example</em></div>
+        <p class="subject">Re: Quote for 500 glass bottles</p>
+        <div class="msg"><div class="av"></div><div class="lines"><b></b><b></b><b></b></div></div>
+        <div class="msg"><div class="av me"></div><div class="lines"><b></b><b></b><b></b></div></div>
+        <div class="msg"><div class="av"></div><div class="lines"><b></b><b></b><b></b></div></div>
+        <div class="bubble">
+          <strong>Tobo</strong>
+          <p><mark>Waiting on you for 4 days:</mark> the supplier asks to confirm quantity and delivery date.</p>
+          <p><mark>Micka promised:</mark> send the updated quote (by Nov 12).</p>
+        </div>
+        <img class="tobo" src="/assets/tobo-wave.webp" alt="Tobo, a plush penguin with a green scarf, waving" width="295" height="335">
+      </div>
+    </div>
+  </main>
+</div>
+
+<section class="band" aria-labelledby="catches">
+  <div class="wrap">
+    <p class="kicker">What Tobo catches</p>
+    <h2 id="catches">The three things every team loses track of.</h2>
+    <p class="sub">Clients and suppliers live in email. Your team answers from several inboxes. Tobo reads the threads and keeps the list nobody has time to keep.</p>
+    <div class="grid3">
+      <div class="card"><p class="quote">"Waiting on you for 4 days."</p><h3>Whose turn it is</h3><p>On every thread, Tobo knows if the ball is with your team or with the other side, and for how long.</p></div>
+      <div class="card"><p class="quote">"Micka promised the quote by Nov 12."</p><h3>What was promised</h3><p>A promise made by email gets an owner and a date, so it does not get lost.</p></div>
+      <div class="card"><p class="quote">"Micka already replied yesterday."</p><h3>Who already replied</h3><p>Before you write the same email twice, Tobo tells you a teammate already answered, and when.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-h">
+  <div class="wrap">
+    <p class="kicker">How it works</p>
+    <h2 id="how-h">No new inbox. Nothing to migrate.</h2>
+    <p class="sub">Tobo sits on top of the Gmail you already use.</p>
+    <div class="grid3">
+      <div class="card step"><span class="num">1</span><div><h3>Create your team</h3><p>Tobo is born with it. Name him, pick his color, invite your teammates with a link.</p></div></div>
+      <div class="card step"><span class="num">2</span><div><h3>Connect Gmail</h3><p>One click each. Every teammate chooses what their inbox shares with the team.</p></div></div>
+      <div class="card step"><span class="num">3</span><div><h3>See what is slipping</h3><p>Inside Gmail, in Slack, and in a chat where every answer links to its source.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="rules" class="band" aria-labelledby="rules-h">
+  <div class="wrap">
+    <p class="kicker">Our rules</p>
+    <h2 id="rules-h">We went through 1,165 public reviews of AI coworkers.</h2>
+    <p class="sub">The same four complaints kept coming back. Tobo is built around them.</p>
+    <table>
+      <tr><th scope="col">What people complain about</th><th scope="col">The rule we hold ourselves to</th></tr>
+      <tr><td>Credits that melt, bills nobody can predict</td><td>Flat price. $19 per teammate. No credits, no meter.</td></tr>
+      <tr><td>Memory locked in one channel or one person, and invisible</td><td>One ledger for the team. Everyone sees the same thing. No manager view.</td></tr>
+      <tr><td>Nobody knows who already did what</td><td>Who replied, who promised what, whose turn it is. With the date.</td></tr>
+      <tr><td>"Can I trust it with my inbox?"</td><td>Facts, not your emails. Tobo reads a message, keeps the fact, throws the message away. He never sends anything.</td></tr>
+    </table>
+    <p class="source">Reviews of Viktor, Claude Tag, Slackbot, Lindy, Dust and Glean on Reddit, Hacker News, Trustpilot, G2 and Product Hunt, collected on November 10, 2026.</p>
+  </div>
+</section>
+
+<section id="pricing" aria-labelledby="pricing-h">
+  <div class="wrap">
+    <p class="kicker">Pricing</p>
+    <h2 id="pricing-h">One plan. One price. No credits.</h2>
+    <p class="sub">Tobo reads threads, he does not run open-ended tasks. His cost is predictable, so yours is too.</p>
+    <div class="price">
+      <div class="card">
+        <p class="big">$19 <small>per teammate, per month</small></p>
+        <ul class="ticks">
+          <li>$15 when billed yearly</li>
+          <li>Ask Tobo as much as you want</li>
+          <li>Every teammate sees the same ledger</li>
+          <li>Cancel in one click, delete everything in one click</li>
+        </ul>
+      </div>
+      <div class="card founding">
+        <p class="big">$9 <small>for founding teams</small></p>
+        <ul class="ticks">
+          <li>The first 100 seats of the private beta</li>
+          <li>14 days free, no card to start</li>
+          <li>Price locked for 12 months</li>
+          <li>A direct line to the two founders</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="faq-h">
+  <div class="wrap">
+    <p class="kicker">Questions</p>
+    <h2 id="faq-h">The honest answers.</h2>
+    <div style="max-width:760px;margin-top:26px">
+      <details><summary>Does Tobo keep my emails?</summary><p>No. Tobo reads the text of a work conversation, keeps what he understood (whose turn it is, a one-sentence summary, promises and dates, a link back to the message) and discards the text. Attachments are never opened. Your data is never used to train a model.</p></details>
+      <details><summary>Who can see what?</summary><p>Each teammate chooses what their own inbox shares. What is shared is visible to the whole team in the same way. There is no manager view, no ranking and no activity counter. Tobo talks about the work, never about people.</p></details>
+      <details><summary>Which tools does Tobo work with?</summary><p>Gmail and Google Workspace today, with Slack to ask Tobo questions. Google Calendar and Outlook are next. We finish one tool completely before starting another.</p></details>
+      <details><summary>Does Tobo send emails for me?</summary><p>No. Tobo never sends, edits or deletes anything. He tells you what is slipping. People decide what to do.</p></details>
+      <details><summary>Why does Google show a warning when I connect?</summary><p>During the private beta, Google shows an "unverified app" screen. Google's verification and an independent security assessment come before we open Tobo to everyone.</p></details>
+      <details><summary>Who is behind Tobo?</summary><p>Two founders in France. One of us is 16. We run a small brand together and we built Tobo for our own supplier threads first. We build in public on <a href="https://x.com/heytobo">X</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="cta" aria-labelledby="join-h">
+  <div class="wrap">
+    <img src="/assets/tobo-happy.webp" alt="Tobo smiling" width="274" height="308">
+    <h2 id="join-h">Get a seat in the private beta.</h2>
+    <p class="sub">100 seats. We open them team by team and write to you when yours is ready.</p>
+    <form class="join" data-join novalidate>
+      <label class="skip" for="e2">Work email</label>
+      <input id="e2" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourteam.com" required>
+      <label class="skip" for="s2">Team size</label>
+      <select id="s2" name="team_size"><option value="">Team size</option><option>2-5</option><option>6-15</option><option>16+</option></select>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-primary" type="submit">Join the private beta</button>
+    </form>
+    <p class="status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Tobo, by Vocaly (France).</span>
+    <nav aria-label="Footer">
+      <a href="https://x.com/heytobo">X</a>
+      <a href="https://www.linkedin.com/company/heytobo">LinkedIn</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:hello@heytobo.com">hello@heytobo.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var URL = "https://lhzpdptivbfpboltqqyi.supabase.co/rest/v1/waitlist";
+  var KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxoenBkcHRpdmJmcGJvbHRxcXlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxMjY1ODMsImV4cCI6MjEwOTcwMjU4M30.2E_mJphfHgBLfFyKsl8zsLrdbvwCitIWZA9KBB0O-zU";
+  function source() {
+    try {
+      var p = new URLSearchParams(location.search);
+      var s = p.get("utm_source") || p.get("ref") || (document.referrer ? new URL(document.referrer).hostname : "direct");
+      return String(s).slice(0, 80);
+    } catch (e) { return "direct"; }
+  }
+  document.querySelectorAll("form[data-join]").forEach(function (form) {
+    var status = form.nextElementSibling;
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var email = form.email.value.trim();
+      var btn = form.querySelector("button");
+      status.className = "status";
+      if (form.website.value) { status.textContent = "You're on the list."; status.className = "status ok"; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || email.length > 254) {
+        status.textContent = "That email doesn't look right."; status.className = "status err"; form.email.focus(); return;
+      }
+      btn.disabled = true; status.textContent = "One second...";
+      fetch(URL, {
+        method: "POST",
+        headers: { "apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
+        body: JSON.stringify({ email: email, team_size: form.team_size.value || null, source: source() })
+      }).then(function (r) {
+        if (r.ok || r.status === 409) {
+          status.textContent = "You're on the list. Tobo will write to you when your seat is ready.";
+          status.className = "status ok"; form.reset();
+        } else { throw new Error(String(r.status)); }
+      }).catch(function () {
+        status.textContent = "That didn't go through. Write to hello@heytobo.com and we'll add you.";
+        status.className = "status err";
+      }).finally(function () { btn.disabled = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
