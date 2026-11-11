@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agents run most of my company. Here is what broke. · Tobo</title>
+<meta name="description" content="I'm 16 and I have no employees, I have Claude Code sessions. 453 of them measured over five weeks: nine failures, the numbers, and the rule each one left behind.">
+<link rel="canonical" href="https://heytobo.com/what-broke">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://heytobo.com/what-broke">
+<meta property="og:title" content="AI agents run most of my company. Here is what broke.">
+<meta property="og:description" content="453 agent sessions measured over five weeks. Nine failures, with the numbers and the rule each one left behind.">
+<meta property="og:image" content="https://heytobo.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@heytobo">
+<meta name="author" content="Camille Soret">
+<meta name="theme-color" content="#FBF7F0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Geist";src:url("/assets/fonts/geist-latin.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--cream:#FBF7F0;--cocoa:#2B2118;--sand:#E4D8C3;--scarf:#8DCF98;--leaf:#2f6b3d;--mint:#E4F3E6;--muted:#6f6252;--soft:#8A7B6A}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--cocoa);font-family:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--leaf)}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:inherit}
+.brand img{width:34px;height:34px;object-fit:contain}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9999px;font:inherit;font-weight:500;line-height:1;cursor:pointer;padding:.7rem 1.2rem;font-size:.9rem;text-decoration:none;color:var(--cream);background:var(--cocoa)}
+.kicker{font-size:13.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf);margin:34px 0 10px}
+h1{font-size:clamp(2.1rem,5.4vw,3.5rem);line-height:1.05;letter-spacing:-.035em;font-weight:600;margin:0 0 18px}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem);line-height:1.12;letter-spacing:-.03em;font-weight:600;margin:56px 0 14px}
+.lead{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);margin:0 0 14px}
+.meta{font-size:14.5px;color:var(--soft);margin:0 0 30px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 8px}
+@media (max-width:760px){.cards{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--sand);border-radius:18px;padding:20px}
+.card b{display:block;font-size:2.3rem;letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+.row{background:#fff;border:1px solid var(--sand);border-radius:18px;padding:20px 22px;margin:0 0 12px}
+.head{display:flex;align-items:baseline;gap:12px}
+.rank{flex:0 0 30px;height:30px;border-radius:50%;background:var(--cocoa);color:var(--cream);display:grid;place-items:center;font-weight:600;font-size:14px;align-self:center}
+.row h3{flex:1;font-size:1.15rem;letter-spacing:-.01em;margin:0;font-weight:600}
+.n{font-size:14px;color:var(--soft);white-space:nowrap}
+.bar{height:8px;border-radius:8px;background:#F1E9DA;margin:12px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:8px;background:var(--scarf)}
+blockquote{margin:0 0 12px;padding:12px 14px;background:#FFF8EC;border:1px solid #EAD9BC;border-radius:14px 14px 14px 4px;font-size:15.5px}
+cite{display:block;font-style:normal;font-size:13px;color:var(--soft);margin-top:6px}
+.fix{margin:0;font-size:15.5px;color:var(--muted)}
+.fix b{color:var(--cocoa);font-weight:600}
+ul{padding-left:22px;color:var(--muted)}
+li{margin-bottom:8px}
+.box{background:#F4EDE0;border:1px solid var(--sand);border-radius:18px;padding:22px 24px;margin:18px 0}
+.box p{margin:0 0 10px;color:var(--muted)}
+.box p:last-child{margin:0}
+.cta{text-align:center;padding:56px 0 70px}
+.cta img{width:120px;margin:0 auto 6px}
+.cta h2{margin:0 0 10px}
+.cta p{color:var(--muted);max-width:34em;margin:0 auto 20px}
+footer{border-top:1px solid var(--sand);padding:24px 0 40px;font-size:14.5px;color:var(--soft)}
+.foot{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+.foot a{color:inherit;text-decoration:none;margin-left:18px}
+.row p{margin:12px 0 0;color:var(--muted);font-size:16px}
+.row p.rule{color:var(--cocoa)}
+.row p.rule b{font-weight:600}
+.n{font-variant-numeric:tabular-nums}
+pre{background:var(--cocoa);color:#F4EDE0;border-radius:16px;padding:18px 20px;overflow-x:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:14px 0}
+code{font:0.92em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#F1E9DA;border-radius:6px;padding:1px 5px}
+pre code{background:none;padding:0;font-size:inherit}
+.by{font-size:15px;color:var(--soft);margin:26px 0 0}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI agents run most of my company. Here is what broke.","author":{"@type":"Person","name":"Camille Soret"},"publisher":{"@type":"Organization","name":"Tobo","url":"https://heytobo.com"},"datePublished":"2026-11-11","mainEntityOfPage":"https://heytobo.com/what-broke"}</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="nav">
+    <a class="brand" href="/" aria-label="Tobo, home"><img src="/assets/tobo-face.png" alt="" width="34" height="34">Tobo</a>
+    <a class="btn" href="/#join">Join the beta</a>
+  </header>
+
+  <main>
+    <p class="kicker">Field notes · November 2026</p>
+    <h1>AI agents run most of my company. Here is what broke.</h1>
+    <p class="lead">I'm 16. I have no employees: I have Claude Code sessions. They write the code, answer suppliers, publish, and watch the sites while I'm in class. I measured 453 of those sessions and wrote down every failure the day it happened. Here are nine of them, with the numbers and the rule each one left behind.</p>
+    <p class="meta">Measured on November 11, 2026, on the transcripts on my laptop: 453 sessions between October 7 and November 11, 17,050 tool calls, 38.3 hours spent inside tools. Older incidents come from notes written the day they happened. The script is public, one file, and nothing leaves your machine: <a href="https://github.com/tobo-team/agent-audit">github.com/tobo-team/agent-audit</a>.</p>
+
+    <div class="cards">
+      <div class="card"><b>60%</b><p>of tool time went into commands that just wait, before I wrote a rule about it. 27% since.</p></div>
+      <div class="card"><b>33 days</b><p>a site stayed down while the monitor that had caught it said nothing.</p></div>
+      <div class="card"><b>17 of 148</b><p>installed skills ever used by the agent, in 453 sessions.</p></div>
+    </div>
+
+    <h2>Nine failures, and the rule each one left</h2>
+
+      <article class="row" id="f1">
+        <div class="head"><span class="rank">1</span><h3>It spent most of its time waiting, and so did I</h3><span class="n">60% → 27%</span></div>
+        <p>Between October 7 and 27, my agents spent 22.5 hours inside tools. 13.4 of those hours, 60%, went into foreground commands that ran for a minute or more: builds, pushes, and 1,286 small loops of <code>sleep</code> and <code>until</code>. The longest single wait lasted 68 minutes. Each time, I was sitting in front of a frozen terminal.</p>
+        <p class="rule"><b>The rule it left:</b> Anything that can take more than a minute runs in the background, and the agent does something else or answers me meanwhile. No <code>sleep</code> in the foreground. A script that has timed out once is never run again as is. Since October 28 the share is 27% and the longest wait is 19 minutes. Better, not solved.</p>
+      </article>
+      <article class="row" id="f2">
+        <div class="head"><span class="rank">2</span><h3>A monitor that worked perfectly let a site stay down for 33 days</h3><span class="n">33 days</span></div>
+        <p>A small script checks the sites I run. On August 1 it saw one of them go down, wrote a line in its log, and then said nothing more, because the state never changed again. I found out on September 3. The sensor did exactly what I had asked for: tell me when something changes.</p>
+        <p class="rule"><b>The rule it left:</b> A sensor repeats its alert for as long as the problem lasts, with the number of days. Silence must mean “all good”, never “nothing new”.</p>
+      </article>
+      <article class="row" id="f3">
+        <div class="head"><span class="rank">3</span><h3>The retry was more dangerous than the failure</h3><span class="n">3 duplicates</span></div>
+        <p>An agent sent a message to suppliers, then checked that it had gone out by comparing its text with what the platform returned. The platform turns line breaks into spaces, so the check failed on every message longer than one line. The agent concluded that the send had failed, and sent again. Three suppliers I was negotiating with received the same message twice.</p>
+        <p class="rule"><b>The rule it left:</b> Before a second attempt at anything that goes out, read the real state again, not the output of the first attempt. A failure is visible and can be replayed. A duplicate lands on a human.</p>
+      </article>
+      <article class="row" id="f4">
+        <div class="head"><span class="rank">4</span><h3>“Upload complete” was not true</h3><span class="n">exit code 0</span></div>
+        <p>A deploy command printed its success line and exited with code 0 while one file had been rejected. The rejection was a few lines further down, and the agent was only reading the last two lines. Three pushes were lost that way. A fix that existed on my laptop stayed invisible online for hours, and we looked for the bug everywhere else.</p>
+        <p class="rule"><b>The rule it left:</b> A success message is a claim. After every push, search the whole output for errors and read the file back from the server.</p>
+      </article>
+      <article class="row" id="f5">
+        <div class="head"><span class="rank">5</span><h3>148 skills installed, 17 ever used</h3><span class="n">11%</span></div>
+        <p>Skills are instruction packs the agent is supposed to load when a task matches. I have 148. In 453 sessions the agent loaded 17 of them, 81 times in total, and three skills account for more than half of those calls. In September I had measured the same thing (16 out of 106) and rewritten the descriptions so that they start with when to use the skill, in the words I actually type. A few dormant ones woke up. Most did not. The cost is not tokens: all the descriptions together weigh about 1% of the context. The cost is that I believed the agent knew how to do things it was never going to look up.</p>
+        <p class="rule"><b>The rule it left:</b> A skill that has not fired in a month gets rewritten or deleted. Count, don't assume.</p>
+      </article>
+      <article class="row" id="f6">
+        <div class="head"><span class="rank">6</span><h3>Eight agents cost me my morning</h3><span class="n">$5.58</span></div>
+        <p>I set up a small agency of eight agents to propose content every day. Its first full pass used the equivalent of $5.58 in API calls and, more to the point, the quota I needed to work that morning. The proposals were average.</p>
+        <p class="rule"><b>The rule it left:</b> No large model in automatic runs. A hard daily budget, $0.80 in my case. An agent runs again only if something new came in. And before adding any recurring agent: would a script with no model do the same job? Often, yes.</p>
+      </article>
+      <article class="row" id="f7">
+        <div class="head"><span class="rank">7</span><h3>Three sessions, three status reports</h3><span class="n">1 file</span></div>
+        <p>Running several sessions in parallel works. What does not work is letting them talk, to each other and to me. In August, three sessions each sent me their progress, and delegated work turned into supervised work. The number of channels grows with the square of the number of sessions.</p>
+        <p class="rule"><b>The rule it left:</b> One <code>BOARD.md</code> per project, one line per lane: who holds what, where it stands, what comes next. A session reads it when it starts and writes one line when it ends. Lanes are split by the resource they touch (the theme, the API, the images), not by topic, so two sessions can never edit the same file. A message to another session is three lines at most and only ever says “I am blocked by you”.</p>
+      </article>
+      <article class="row" id="f8">
+        <div class="head"><span class="rank">8</span><h3>37,714 restarts</h3><span class="n">12.4 W → 4.7 W</span></div>
+        <p>My laptop was hot and lasted two hours on battery. One background worker had been restarted 37,714 times in 19 days because of a missing module. Two others, 13,411 and 5,956 times. A forgotten game process had held a full CPU core for 14 days. The laptop drew 12.4 watts doing nothing. After the cleanup, 4.7. One of those jobs was my “assistant”. It had produced nothing for three weeks and I had not noticed.</p>
+        <p class="rule"><b>The rule it left:</b> Automation rots quietly. Every recurring job leaves a dated line somewhere I actually read, and a job that has produced nothing gets removed, not repaired.</p>
+      </article>
+      <article class="row" id="f9">
+        <div class="head"><span class="rank">9</span><h3>My estimates were wrong in both directions</h3><span class="n">$0.90 vs $0.19</span></div>
+        <p>I had estimated that a medium task for our product would cost $0.90. Measured on five real tasks, it was $0.15 to $0.23. In the other direction, an agent once spent 25 minutes placing an object by trial and error; when it measured first, the same job took four tool calls. And on the morning I wrote this, three minutes of checking showed that a tool we were about to build already exists, with 629 stars.</p>
+        <p class="rule"><b>The rule it left:</b> Before working on a problem, check that it exists: twenty minutes before two days. And the first line of every task is “Done =”, followed by something I can observe.</p>
+      </article>
+
+    <h2>What they have in common</h2>
+    <div class="box">
+      <p>None of these came from a model being stupid. The agent said “done” about a state nobody had read back. It acted twice. It waited without saying so. It spent without a ceiling. It reported instead of finishing.</p>
+      <p>Those are also the complaints people have about AI coworkers at work. So these rules are what my cofounder and I are building Tobo on: an AI teammate that checks before he says done, asks before anything he can't undo, works under a hard cap, and hands back a receipt for every task.</p>
+    </div>
+
+    <h2>Measure your own</h2>
+    <p class="lead">One Python file, standard library only. It reads the Claude Code transcripts already on your disk. No model is called and nothing leaves your machine.</p>
+<pre><code>curl -sO https://raw.githubusercontent.com/tobo-team/agent-audit/main/audit.py
+python3 audit.py --by-month</code></pre>
+<pre><code>agent-audit · 453 sessions · 2026-10-07 → 2026-11-11
+
+WHERE THE TOOL TIME WENT
+  tool calls                            17,050
+  time inside tools                     38.3 h
+  foreground commands ≥ 60 s     315 calls    17.7 h   46%
+  sleep / poll loops           1,797 calls    13.7 h   36%
+  longest single wait                    1.1 h
+
+SKILLS
+  installed                                148
+  ever triggered by the agent               17   11%
+  calls                                     81  top 3 = 54%
+
+BY MONTH        tool time   ≥60 s   poll loops
+  2026-10         26.8 h     59%     43%
+  2026-11         11.6 h     17%     19%</code></pre>
+    <p class="lead">The nine rules, ready to paste into a <code>CLAUDE.md</code>, and the two files my sessions coordinate with are in the same repository.</p>
+
+    <h2>Limits, stated plainly</h2>
+    <ul>
+      <li>One person, one laptop, five weeks of transcripts. Claude Code keeps about a month of them by default.</li>
+      <li>“Tool time” is the time between a tool call and its result. Parallel calls are each counted in full, and the time the model spends thinking is not included.</li>
+      <li>The drop from 60% to 27% came after the rule, not necessarily because of it. The work changed too.</li>
+      <li>A long foreground command is not always waste. The question is whether the agent, and I, could have done something else meanwhile.</li>
+      <li>We build a product in this space, so read the section above for what it is.</li>
+    </ul>
+    <p class="by">Camille Soret, 16, cofounder of Tobo. Antibes, France. Corrections welcome: <a href="mailto:hello@heytobo.com">hello@heytobo.com</a> or an issue on the repository.</p>
+  </main>
+</div>
+
+<section class="cta">
+  <div class="wrap">
+    <img src="/assets/tobo-happy.webp" alt="Tobo, a plush penguin with a green scarf" width="274" height="308">
+    <h2>Want to see how it turns out?</h2>
+    <p>We build in public and open the private beta team by team.</p>
+    <a class="btn" href="/#join">Join the private beta</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Tobo, by Vocaly (France).</span>
+    <span><a href="/">Home</a><a href="/complaints">Study</a><a href="https://x.com/heytobo">X</a><a href="/privacy">Privacy</a><a href="mailto:hello@heytobo.com">hello@heytobo.com</a></span>
+  </div>
+</footer>
+</body>
+</html>
